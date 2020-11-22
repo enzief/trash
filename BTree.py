@@ -14,8 +14,10 @@ class BTreeNode:
             # If this is not leaf, then before printing key[i],
             # traverse the subtree rooted with child C[i].
             if not self.leaf:
+                print(" root:" + str(self.keys[i]))
                 self.children[i].traverse()
-            print(" " + str(self.keys[i]))
+            else:
+                print(" leaf:" + str(self.keys[i]))
 
         # Print the subtree rooted with last child
         if not self.leaf:
@@ -66,7 +68,7 @@ class BTreeNode:
                 self.splitChild(i + 1, self.children[i + 1])
 
                 # After split, the middle key of C[i] goes up and
-                # C[i] is splitted into two. See which of the two
+                # children[i] is splitted into two. See which of the two
                 # is going to have the new key
                 if self.keys[i + 1] < k:
                     i += 1
@@ -75,8 +77,7 @@ class BTreeNode:
     # A utility function to split the child y of this node
     # Note that y must be full when this function is called
     def splitChild(self, i, y):
-        # Create a new node which is going to store (t-1) keys
-        # of y
+        # Create a new node which is going to store (t-1) keys of y
         z = BTreeNode(y.leaf)
         z.n = self.t - 1
 
